@@ -1,0 +1,63 @@
+ :root {
+      --primary-color: #002c54;
+      --accent-color: #f9aa33;
+      --text-color: #ffffff;
+      --hover-color: #014f86;
+      --bg-color: #f5f7fa;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+    }
+
+    .navbar {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent-color);
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .login-icon {
+      color: var(--text-color);
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .login-icon:hover {
+      color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none; /* Hidden for mobile (could be replaced with hamburger menu) */
+      }
+    }
