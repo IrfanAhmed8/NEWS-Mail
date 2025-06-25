@@ -12,6 +12,18 @@ def hello_world():
 def sports():
     return render_template("sports.html")
 
+@app.route('/politics')
+def politics():
+    return render_template("politics.html") 
+
+@app.route('/business')
+def business():
+    return render_template("business.html")     
+
+@app.route('/technology')
+def technology():
+    return render_template("technology.html")   
+
 app.run(debug=True)
 
 

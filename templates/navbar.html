@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-Page</title>
+    {% endblock %}
+</head>
+<body>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NEWS-Mail</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="static/home.css">
+
+  <nav class="navbar">
+    <div class="logo" href="/">NEWS-Mail</div>
+    <div class="nav-links">
+      <a href="/">Breaking News</a>
+      <a href="/sports">Sports</a>
+      <a href="/politics">Health</a>
+      <a href="/business">Entertainment</a>
+    </div>
+    <div class="login-icon" title="Login">
+      <i class="fas fa-user-circle"></i>
+    </div>
+  </nav>
+  {% block content%}
+  {% endblock %}
+
+</body>
+</html>
+
+</body>
+</html>
