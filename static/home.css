@@ -1,63 +1,71 @@
- :root {
-      --primary-color: #002c54;
-      --accent-color: #f9aa33;
-      --text-color: #ffffff;
-      --hover-color: #014f86;
-      --bg-color: #f5f7fa;
+ .home-container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
     }
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg-color);
+    .intro-text {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
     }
 
-    .navbar {
-      background-color: var(--primary-color);
-      color: var(--text-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.8rem 2rem;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: var(--accent-color);
-      letter-spacing: 1px;
-    }
-
-    .nav-links {
-      display: flex;
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.5rem;
     }
 
-    .nav-links a {
+    .news-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .news-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .news-content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .news-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .news-summary {
+      flex-grow: 1;
+      color: #333;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 0.8rem;
+    }
+
+    .news-link {
       text-decoration: none;
-      color: var(--text-color);
-      font-size: 1rem;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
       color: var(--accent-color);
+      font-weight: bold;
+      font-size: 0.95rem;
+      transition: color 0.2s;
     }
 
-    .login-icon {
-      color: var(--text-color);
-      font-size: 1.4rem;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-
-    .login-icon:hover {
-      color: var(--accent-color);
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none; /* Hidden for mobile (could be replaced with hamburger menu) */
-      }
+    .news-link:hover {
+      color: var(--hover-color);
     }

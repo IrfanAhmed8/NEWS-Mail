@@ -53,16 +53,22 @@ class AlJazeeraScraper:
             container = soup.find('div', class_='wysiwyg wysiwyg--all-content')
             paragraphs = container.find_all('p') if container else []
             image_div = soup.find('div', class_='responsive-image')
-            image=''
+            image_div = soup.find('div', class_='responsive-image')
             if image_div:
                 img_tag = image_div.find('img')
                 if img_tag and img_tag.has_attr('src'):
-                    image = img_tag['src']
-            text = ' '.join(p.get_text(strip=True) for p in paragraphs)
-            return text, image
+                    img_src = img_tag['src']
+                    if img_src.startswith('/'):
+                        # relative path: prepend domain
+                        image = 'https://www.aljazeera.com' + img_src
+                    else:
+                        image = img_src
+
+            return paragraphs, image
         except Exception as e:
-            print("Error fetching content:", e)
-            return None, None
+            print("Error fetching article:", e)
+            return '', ''
+
 
     def scrape(self):
         soup = self.fetch_homepage()
