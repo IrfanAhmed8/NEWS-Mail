@@ -2,28 +2,39 @@
 
 {% block head %}
   {{ super() }}
-  <title>Home-Page</title>
-  <link rel="stylesheet"  href="static/home.css"> 
+  <title>Daily Digest - Top News</title>
+  <link rel="stylesheet" href="static/home.css"> 
 {% endblock %}
 
 {% block content %}
-  <div class="home-container">
-    <div class="intro-text">
-      <h1>Home - Page</h1>
-      <p>Get current, summarized news here.</p>
-    </div>
+<div class="hero-section">
+  <div class="hero-overlay">
+    <h1 class="hero-title">📰 Today's Digest</h1>
+    <p class="hero-subtitle">Curated, Summarized, Real-time News from Around the Globe</p>
+    <a href="#news-section" class="scroll-down">▼ Explore Headlines</a>
+  </div>
+</div>
 
-    <div class="news-grid">
-      {% for news in all_news %}
-      <div class="news-card">
-        <img src="{{ news.image }}" alt="News Image" class="news-image" onerror="this.src='https://via.placeholder.com/400x200';">
-        <div class="news-content">
-          <div class="news-title">{{ news.title }}</div>
-          <div class="news-summary">{{ news.content }}</div>
-          <a class="news-link" href="{{ news.link }}" target="_blank">Read More &raquo;</a>
-        </div>
-      </div>
-      {% endfor %}
+<div class="category-bar">
+  <button class="cat-btn active">All</button>
+  <button class="cat-btn">Politics</button>
+  <button class="cat-btn">Tech</button>
+  <button class="cat-btn">World</button>
+  <button class="cat-btn">Health</button>
+  <button class="cat-btn">Sports</button>
+</div>
+
+<div id="news-section" class="news-grid">
+  {% for news in all_news %}
+  <div class="news-card">
+    <img src="{{ news.image }}" alt="News Image" class="news-image" onerror="this.src='https://via.placeholder.com/400x200';">
+    <div class="glass-content">
+      <span class="news-tag">World</span>
+      <h2 class="news-title">{{ news.title }}</h2>
+      <p class="news-summary">{{ news.summary }}</p>
+      <a class="news-link" href="{{ news.link }}" target="_blank">Read More &raquo;</a>
     </div>
   </div>
+  {% endfor %}
+</div>
 {% endblock %}
