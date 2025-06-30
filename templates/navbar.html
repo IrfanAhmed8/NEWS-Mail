@@ -23,9 +23,17 @@
       <a href="/politics">Health</a>
       <a href="/business">Entertainment</a>
     </div>
+    
     <div class="login-icon" title="Login">
-      <i class="fas fa-user-circle"></i>
-    </div>
+  <i class="fas fa-user-circle"></i>
+  {% if session_name %}
+    <span style="margin-left: 5px;">{{ session_name }}</span>
+  {% else %}
+    <a href="/login">Login</a>
+  {% endif %}
+
+  <a href="/login">logout</a>
+</div>
   </nav>
   {% block content%}
   {% endblock %}
