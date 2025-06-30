@@ -1,17 +1,61 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,request,redirect,session
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask_sqlalchemy import SQLAlchemy
-from BBCdb import BBC,db,Business
+from BBCdb import BBC,db,Business,User
 from news_Scrapper import AlJazeeraScraper
+
+
 def create_App():
     app = Flask(__name__)
-    scrapper=AlJazeeraScraper("https://www.aljazeera.com")
-    scheduler=BackgroundScheduler()
-    scheduler.add_job(scrapper.scrape,trigger='interval',hours=1)
-    scheduler.start()
+    #scrapper=AlJazeeraScraper("https://www.aljazeera.com")
+    #scheduler=BackgroundScheduler()
+  #  scheduler.add_job(scrapper.scrape,trigger='interval',hours=1)
+   # scheduler.start()
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///BBC.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.secret_key='NEWS-Mail'
     db.init_app(app)
+
+    @app.route("/register", methods=["GET", "POST"])
+    def register():
+        if request.method == "POST":
+            name = request.form['name']
+            email = request.form['email']
+            password = request.form['password']
+
+            # Make sure your User model has these fields
+            try:
+                user = User(name=name, email=email, password=password)
+                db.session.add(user)
+                db.session.commit()
+            except:
+                print("email already exist")
+
+            return redirect('/login')  # Should redirect now if POST works
+        return render_template('register.html')
+
+
+    @app.route("/login", methods=["GET", "POST"])
+    def login():
+        if request.method == "POST":
+            email = request.form['email']
+            password = request.form['password']
+            
+            user = User.query.filter_by(email=email).first()
+            if user and user.check_password(password):
+                session['email'] = user.email
+                session['name']=user.name
+                return redirect('/')
+            else:
+                return render_template('login.html', error="Invalid credentials")
+        
+        return render_template('login.html')
+                
+                
+
+
+        
+
 
 
     
@@ -19,7 +63,21 @@ def create_App():
     def hello_world():
         all_BBC_news=BBC.query.all()
         print("data is ready to be fetch")
-        return render_template("home.html",all_news=all_BBC_news)
+        if 'email' in session:
+            user=User.query.filter_by(email=session['email']).first()
+            return render_template("home.html",all_news=all_BBC_news,user=user)
+        
+        return redirect('/login')
+    
+
+    @app.route('/logout')
+    def logout():
+        session.pop('email',None)
+        return redirect('/login')
+    
+    @app.context_processor
+    def inject_user():
+        return dict(session_name=session.get('name'))
 
 
     @app.route('/sports')
@@ -46,5 +104,8 @@ if __name__ == "__main__":
        
         db.create_all()
         print("✅ Tables created:", db.inspect(db.engine).get_table_names())
-
+    print ("app is runnig")
     app.run(debug=True)
+
+
+
