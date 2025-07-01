@@ -9,13 +9,23 @@ def create_App():
     app = Flask(__name__)
     #scrapper=AlJazeeraScraper("https://www.aljazeera.com")
     #scheduler=BackgroundScheduler()
-  #  scheduler.add_job(scrapper.scrape,trigger='interval',hours=1)
+    # scheduler.add_job(scrapper.scrape,trigger='interval',hours=1)
    # scheduler.start()
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///BBC.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.secret_key='NEWS-Mail'
     db.init_app(app)
 
+
+    @app.route("/")
+    def hello_world():
+        all_BBC_news=BBC.query.all()
+        print("data is ready to be fetch")
+        if 'email' in session:
+            user=User.query.filter_by(email=session['email']).first()
+            return render_template("home.html",all_news=all_BBC_news,user=user)
+        
+        return redirect('/login')
     @app.route("/register", methods=["GET", "POST"])
     def register():
         if request.method == "POST":
@@ -59,15 +69,7 @@ def create_App():
 
 
     
-    @app.route("/")
-    def hello_world():
-        all_BBC_news=BBC.query.all()
-        print("data is ready to be fetch")
-        if 'email' in session:
-            user=User.query.filter_by(email=session['email']).first()
-            return render_template("home.html",all_news=all_BBC_news,user=user)
-        
-        return redirect('/login')
+   
     
 
     @app.route('/logout')
@@ -101,7 +103,8 @@ def create_App():
 if __name__ == "__main__":
     app=create_App()
     with app.app_context():
-       
+        scrapper=AlJazeeraScraper("https://www.aljazeera.com")
+        scrapper.scrape()
         db.create_all()
         print("✅ Tables created:", db.inspect(db.engine).get_table_names())
     print ("app is runnig")

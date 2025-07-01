@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends "navbar.html" %}
 
-<h2>login Forms</h2>
+{% block head %}
+  {{ super() }}
+  <title>Login</title>
+  <link rel="stylesheet" href="/static/login.css">
+{% endblock %}
 
-<form action="/login" method="POST">
- 
-  <label for="lname">Email:</label><br>
-  <input type="email" id="lname" name="email" ><br><br>
-  <label for="lname">Password</label><br>
-  <input type="password" id="lname" name="password" ><br><br>
-
-  <input type="submit" value="Submit">
-  <a href="/register">register</a>
-</form> 
-
-<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
-
-</body>
-</html>
+{% block content %}
+  <div class="login-card">
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="submit" value="Login">
+    </form>
+    <a href="/register">Don’t have an account? Register</a>
+  </div>
+{% endblock %}

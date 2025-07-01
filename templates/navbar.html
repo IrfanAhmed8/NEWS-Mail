@@ -24,16 +24,16 @@
       <a href="/business">Entertainment</a>
     </div>
     
-    <div class="login-icon" title="Login">
+   <div class="user-info">
   <i class="fas fa-user-circle"></i>
   {% if session_name %}
-    <span style="margin-left: 5px;">{{ session_name }}</span>
+    <span class="username">{{ session_name }}</span>
+    <a class="logout-link" href="/logout">Logout</a>
   {% else %}
-    <a href="/login">Login</a>
+    <a class="login-link" href="/login">Login</a>
   {% endif %}
-
-  <a href="/login">logout</a>
 </div>
+
   </nav>
   {% block content%}
   {% endblock %}

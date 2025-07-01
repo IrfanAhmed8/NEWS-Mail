@@ -1,22 +1,20 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends "navbar.html" %}
 
-<h2>Register Forms</h2>
+{% block head %}
+  {{ super() }}
+  <title>Register</title>
+  <link rel="stylesheet" href="/static/register.css">
+{% endblock %}
 
-<form action="/register" method="POST">
-  <label for="fname"> name:</label><br>
-  <input type="text" id="fname" name="name"><br>
-  <label for="fname"> email</label><br>
-  <input type="email" id="fname" name="email"><br>
-  <label for="fname"> password</label><br>
-  <input type="password" id="fname" name="password"><br>
-  
-  <input type="submit" value="Submit">
-  <a href="/login">Login</a>
-</form> 
-
-<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
-
-</body>
-</html>
+{% block content %}
+  <div class="register-card">
+    <h2>Create Account</h2>
+    <form action="/register" method="POST">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="submit" value="Register">
+    </form>
+    <a href="/login">Already have an account? Login</a>
+  </div>
+{% endblock %}
