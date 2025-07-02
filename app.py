@@ -1,7 +1,7 @@
-from flask import Flask,render_template,request,redirect,session
+from flask import Flask,render_template,request,redirect,session,flash
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask_sqlalchemy import SQLAlchemy
-from BBCdb import BBC,db,Business,User
+from BBCdb import BBC,db,Business,User,user_Subscription
 from news_Scrapper import AlJazeeraScraper
 
 
@@ -97,14 +97,38 @@ def create_App():
     @app.route('/technology')
     def technology():
         return render_template("technology.html")  
+    
+    @app.route('/subscribe', methods=["GET", "POST"])
+    def subscribe():
+        if request.method == "POST":
+            frequency = request.form.get('frequency')
+            categories = request.form.getlist('category')  # checkbox inputs should use name="category"
+            email = session.get('email')
+
+            if email:
+                # Optional: remove old entries
+                user_Subscription.query.filter_by(email=email).delete()
+                db.session.commit()
+
+                for category in categories:
+                    sub = user_Subscription(email=email, frequency=frequency, category=category)
+                    db.session.add(sub)
+                db.session.commit()
+
+                flash("You are subscribed!", "success")
+                return redirect('/')
+
+            flash("You must be logged in to subscribe.", "danger")
+            return redirect('/login')
+
+        return render_template('subscribe.html')
+
 
     return app 
 
 if __name__ == "__main__":
     app=create_App()
     with app.app_context():
-        scrapper=AlJazeeraScraper("https://www.aljazeera.com")
-        scrapper.scrape()
         db.create_all()
         print("✅ Tables created:", db.inspect(db.engine).get_table_names())
     print ("app is runnig")

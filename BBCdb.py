@@ -31,4 +31,17 @@ class User(db.Model):
 
     def check_password(self,password):
         return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
+    
+
+class user_Subscription(db.Model):
+    id = db.Column(db.Integer, primary_key=True)  # Add ID for uniqueness
+    email = db.Column(db.String(300))  # Remove unique=True to allow multiple rows
+    frequency = db.Column(db.String(300), nullable=True)
+    category = db.Column(db.String(300), nullable=True)  # Fix typo and use singular 'category'
+
+    def __init__(self, email, frequency, category):
+        self.email = email
+        self.frequency = frequency
+        self.category = category
+        self.categories=category
         

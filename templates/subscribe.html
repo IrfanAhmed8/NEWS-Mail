@@ -1,0 +1,38 @@
+{% extends "navbar.html" %}
+
+{% block head %}
+  {{ super() }}
+  <title>Subscribe</title>
+  <link rel="stylesheet" href="/static/subscribe.css">
+{% endblock %}
+
+{% block content %}
+<div class="subscribe-container">
+  <form action="/subscribe" method="POST">
+    <h2>Choose Your Subscription</h2>
+
+    <div class="section">
+      <p>Delivery Preference</p>
+      <div class="toggle-group" id="frequency-group">
+        <input type="radio" name="frequency" id="daily" value="daily" hidden>
+        <label for="daily" class="toggle-button">Daily</label>
+
+        <input type="radio" name="frequency" id="weekly" value="weekly" hidden>
+        <label for="weekly" class="toggle-button">Weekly</label>
+      </div>
+    </div>
+
+    <div class="section">
+      <p>Choose Categories</p>
+      <div class="toggle-group checkbox-group">
+        <label><input type="checkbox" name="category" value="sports"> Sports</label>
+        <label><input type="checkbox" name="category" value="business"> Business</label>
+        <label><input type="checkbox" name="category" value="health"> Health</label>
+        <label><input type="checkbox" name="category" value="breaking-news"> Breaking News</label>
+      </div>
+    </div>
+
+    <input type="submit" value="Subscribe" class="submit-btn">
+  </form>
+</div>
+{% endblock %}
