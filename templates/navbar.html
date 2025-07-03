@@ -26,8 +26,10 @@
 
     
    <div class="user-info">
+    <a class="subscribe-btn" href="/subscribe"><i class="fas fa-bell"></i> Subscribe</a>
   <i class="fas fa-user-circle"></i>
-  <a class="subscribe-link" href="/subscribe">subscribe</a>
+  
+
   {% if session_name %}
     <span class="username">{{ session_name }}</span>
     <a class="logout-link" href="/logout">Logout</a>

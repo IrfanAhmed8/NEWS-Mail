@@ -69,3 +69,31 @@
         display: none; /* Hidden for mobile (could be replaced with hamburger menu) */
       }
     }
+
+    .subscribe-btn {
+  display: inline-block;
+  background: #ff5722;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  transition: background 0.3s, transform 0.2s;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.subscribe-btn i {
+  margin-right: 8px;
+}
+
+.subscribe-btn:hover {
+  background: #e64a19;
+  transform: scale(1.05);
+}
+
+.subscribe-btn:active {
+  background: #bf360c;
+  transform: scale(0.97);
+}
