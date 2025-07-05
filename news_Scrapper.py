@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import time
-from BBCdb import BBC,db
-
+from BBCdb import BBC,db,businessDB
+from urllib.parse import urljoin
 from summarizer import summarize_paragraphs
 
 class AlJazeeraScraper:
@@ -119,9 +119,5 @@ class AlJazeeraScraper:
         self.summarize_paragraph()
         self.Delete_row_BBC()
         self.copy_all_to_BBC_db()
-
-
-
-
 
 

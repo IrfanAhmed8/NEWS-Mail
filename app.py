@@ -3,14 +3,19 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from flask_sqlalchemy import SQLAlchemy
 from BBCdb import BBC,db,Business,User,user_Subscription
 from news_Scrapper import AlJazeeraScraper
+from business_Scrapper import businessScrapper
+
 
 
 def create_App():
     app = Flask(__name__)
-    #scrapper=AlJazeeraScraper("https://www.aljazeera.com")
-    #scheduler=BackgroundScheduler()
-    # scheduler.add_job(scrapper.scrape,trigger='interval',hours=1)
-   # scheduler.start()
+    scrapper=AlJazeeraScraper("https://www.aljazeera.com")
+    businessscrapper=businessScrapper('https://businesstime.in/')
+    scheduler=BackgroundScheduler()
+    scheduler.add_job(scrapper.scrape,businessScrapper.scrape,trigger='interval',hours=1)
+    scheduler.start()
+   
+    
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///BBC.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.secret_key='NEWS-Mail'
@@ -60,6 +65,7 @@ def create_App():
                 return render_template('login.html', error="Invalid credentials")
         
         return render_template('login.html')
+        
                 
                 
 

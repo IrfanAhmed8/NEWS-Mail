@@ -44,4 +44,14 @@ class user_Subscription(db.Model):
         self.frequency = frequency
         self.category = category
         self.categories=category
+
+
+
+
+class businessDB(db.Model):
+    title = db.Column(db.String(100),primary_key=True)
+    link=db.Column(db.String(300),nullable=True)
+    content = db.Column(db.Text)
+    image=db.Column(db.String(100))
+    summary = db.Column(db.Text)
         
