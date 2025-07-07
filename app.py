@@ -1,18 +1,23 @@
 from flask import Flask,render_template,request,redirect,session,flash
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask_sqlalchemy import SQLAlchemy
-from BBCdb import BBC,db,Business,User,user_Subscription
+from BBCdb import BBC,db,businessDB,User,user_Subscription 
 from news_Scrapper import AlJazeeraScraper
-from business_Scrapper import businessScrapper
+from businessTimes import businessScrapper
+#from businessTimes import businessScrapper
+
 
 
 
 def create_App():
     app = Flask(__name__)
     scrapper=AlJazeeraScraper("https://www.aljazeera.com")
-    businessscrapper=businessScrapper('https://businesstime.in/')
+    businessscrapper=businessScrapper("https://www.businesstoday.in/")
     scheduler=BackgroundScheduler()
-    scheduler.add_job(scrapper.scrape,businessScrapper.scrape,trigger='interval',hours=1)
+    scheduler.add_job(scrapper.scrape,trigger='interval',hours=1)
+    scheduler.add_job(businessscrapper.scrape,trigger='interval',hours=1)
+
+
     scheduler.start()
    
     
@@ -98,7 +103,8 @@ def create_App():
 
     @app.route('/business')
     def business():
-        return render_template("business.html")     
+        all_business_news=businessDB.query.all()
+        return render_template("business.html",business_news=all_business_news)     
 
     @app.route('/technology')
     def technology():

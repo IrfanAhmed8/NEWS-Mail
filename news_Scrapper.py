@@ -45,8 +45,7 @@ class AlJazeeraScraper:
             if link not in seen and title:
                 seen.add(link)
                 self.unique_links.append({"Title": title, "Link": link})
-            if len(self.unique_links) == limit:
-                break
+            
 
     def get_info_and_image(self, link):
         print("Fetching info from:", link)
